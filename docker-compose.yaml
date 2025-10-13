@@ -1,0 +1,11 @@
+---
+services:
+  azurite:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "azurite"
+    hostname: azurite
+    restart: unless-stopped
+    ports:
+      - "10000:10000"

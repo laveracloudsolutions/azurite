@@ -1,0 +1,10 @@
+{
+  "images": [
+    {
+      "folder": ".",
+      "image_tag": "azurite:3.35.0",
+      "image_additionnal_tag": "azurite:latest",
+      "platforms": "linux/amd64,linux/arm64"
+    }
+  ]
+}

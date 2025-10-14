@@ -8,33 +8,36 @@ Azure Blob Storage Emulator (for dev)
 * Docker Tag List: https://mcr.microsoft.com/v2/azure-storage/azurite/tags/list
 
 
-## Quick Start
+## Test du service en local
 
 ```bash
-
-# Préparation de l'image
-docker build -t ghcr.io/laveracloudsolutions/azurite:3.35.0 .
-
-# Lancement
+# Lancement du services
 docker compose up
 
-# Création d'un container par défaut nommé selon la variable d'environnement, s'il n'existe pas encore
-AZURE_MOCK_TOKEN_DEV="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlLXVzZXIiLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdC8iLCJhdWQiOiJodHRwczovLzEyNy4wLjAuMToxMDAwIiwibmJmIjoxNzM4NzgwMDAwLCJleHAiOjE3Mzg3ODg2MDAsInJvbGUiOiJhZG1pbiJ9.f3KD0SCulLG8NSx0hNor3nK4-sWYKxMo_D0-XsNYqt4"
-curl -k -I -X PUT https://127.0.0.1:10000/devstoreaccount1/container-name?restype=container -H "x-ms-version: 2017-11-09" -H "Authorization: Bearer ${AZURE_MOCK_TOKEN_DEV}"
+# Token de base
+export  AZURE_MOCK_TOKEN_DEV='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJhdWQiOiJodHRwczovL3N0b3JhZ2UuYXp1cmUuY29tIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvIiwiaWF0IjoxNTExODU5NjAzLCJuYmYiOjE1MTE4NTk2MDMsImV4cCI6MTgyOTk2MzUwM30.KAH5-f_iAipjFk91AiUmi2tFY4AQa5CJbXU-MTgw7h_GIBLUG43b61zud0TrI7OCrAPkj06AeBHbwVT2LIFmp3ijNbR9iYX_hf76gy1R2tQA9iHnQ73ookRhPreAnLa84tr5QXi1FRBqhc4Tmio64aEAY8otUzIR8kkmwSLCWX9hcpaxAjnAr000Cvgiskz1Wva_CHeDQzDCoi1NL-20ILAc0mW-ZqUOuoS3e8NOBHVEiu8FA6YU6o0mD0Av94ixbz9RVMhzO_k_Pc-4eboOMs9KGG2VTAJT6IZ_TykrbmkI-d2Uv0TbBKIp9AdSMMKb0ucq-uaT4DUUFFVbbj3GoQ'
 
+# Vérification du Token
+echo "AZURE_MOCK_TOKEN_DEV=${AZURE_MOCK_TOKEN_DEV}"
 
-# Push de l'image
-docker push ghcr.io/laveracloudsolutions/azurite:latest
+# List Blob Storage
+curl -k -v -X GET  -H "x-ms-version: 2021-12-02" -H "Authorization: Bearer ${AZURE_MOCK_TOKEN_DEV}" https://127.0.0.1:10000/devstoreaccount1?comp=list
+
+# Create Blob Storage
+curl -k -I -X PUT https://127.0.0.1:10000/devstoreaccount1/container-name?restype=container -H "x-ms-version: 2021-12-02" -H "Authorization: Bearer ${AZURE_MOCK_TOKEN_DEV}"
 ```
 
-## Utilisation (Exemple)
+## Préparation de l'image
+
 ```bash
-# Créer un PAT Azure DevOps > https://dev.azure.com/petrolavera/_usersSettings/tokens
-export AZURE_DEVOPS_EXT_PAT="xxxxxxxxxxxxxxxxxxxxxxxx"
 
-# Lancer une commande de type "az devops"
-docker run --rm -e AZURE_DEVOPS_EXT_PAT "ghcr.io/laveracloudsolutions/azure-devops-tools:latest" //bin/bash -c "az devops --help"
+# Tag avec version
+docker build -t ghcr.io/laveracloudsolutions/azurite:3.35.0 .
+docker push ghcr.io/laveracloudsolutions/azurite:3.35.0
 
+# Tag latest
+docker build -t ghcr.io/laveracloudsolutions/azurite:latest .
+docker push ghcr.io/laveracloudsolutions/azurite:latest
 ```
 
 

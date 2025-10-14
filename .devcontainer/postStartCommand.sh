@@ -1,0 +1,4 @@
+# Création d'un container par défaut nommé `container-name` s'il n'existe pas
+# Utilisation d'un jeton très longue durée (valide jusqu'au 28/12/2027)
+TOKEN='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJhdWQiOiJodHRwczovL3N0b3JhZ2UuYXp1cmUuY29tIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvIiwiaWF0IjoxNTExODU5NjAzLCJuYmYiOjE1MTE4NTk2MDMsImV4cCI6MTgyOTk2MzUwM30.KAH5-f_iAipjFk91AiUmi2tFY4AQa5CJbXU-MTgw7h_GIBLUG43b61zud0TrI7OCrAPkj06AeBHbwVT2LIFmp3ijNbR9iYX_hf76gy1R2tQA9iHnQ73ookRhPreAnLa84tr5QXi1FRBqhc4Tmio64aEAY8otUzIR8kkmwSLCWX9hcpaxAjnAr000Cvgiskz1Wva_CHeDQzDCoi1NL-20ILAc0mW-ZqUOuoS3e8NOBHVEiu8FA6YU6o0mD0Av94ixbz9RVMhzO_k_Pc-4eboOMs9KGG2VTAJT6IZ_TykrbmkI-d2Uv0TbBKIp9AdSMMKb0ucq-uaT4DUUFFVbbj3GoQ'
+curl -k -I -X PUT https://127.0.0.1:10000/devstoreaccount1/container-name?restype=container -H "x-ms-version: 2017-11-09" -H "Authorization: Bearer ${TOKEN}" || true
